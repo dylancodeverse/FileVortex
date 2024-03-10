@@ -1,0 +1,72 @@
+FunctionModelDependsOnClassName:{
+    java-spring-restcontroller:{
+
+        @GetMapping(path = "/#className#s")
+        public #ClassName#DTO get#ClassName#s()
+        /{
+            List<#ClassName#> #className#s = crud#ClassName#.get#ClassName#List() ;
+            #className#sDTO.set#ClassName#AsList(#className#s);
+            return #className#sDTO ;
+        /}
+
+        @GetMapping(path = "/#className#s//{id/}")
+        public #ClassName#DTO get#ClassName#sById(@PathVariable("id") final Integer id)
+        /{
+            #ClassName# #className#s = crud#ClassName#.get#ClassName#ByID(Integer.valueOf(id)) ;
+            #className#sDTO.set#ClassName#(#className#s) ;
+
+            return #className#sDTO ;
+        /}
+
+        @PostMapping(path = "/#className#s")
+        public #ClassName#DTO save#ClassName#(@RequestBody #ClassName#DTO #className#sDTO)
+        /{
+            try /{
+                crud#ClassName#.post#ClassName#(#className#sDTO.get#ClassName#());
+                
+            /} catch (Exception e) /{
+                #className#sDTO.setErrors(e.getMessage());
+            /}
+
+            return #className#sDTO;
+
+        /}    
+
+        @PutMapping(path ="/#className#s//{id/}")
+        public #ClassName#DTO update#ClassName#(@PathVariable("id") final Integer id , @RequestBody #ClassName#DTO #className#sDTO)
+        /{
+            crud#ClassName#.update#ClassName#(id, #className#sDTO.get#ClassName#());
+
+            return #className#sDTO;
+        /}
+
+        @DeleteMapping(path = "/#className#s//{id}")
+        public void delete#ClassName#(@PathVariable("id") final Integer id)
+        /{
+            crud#ClassName#.delete#ClassName#ByID(id);
+        /}    
+
+    }
+    java-springy-controller:{
+        
+        @UrlMapping(url = "/fetch")
+        @RestAPI
+        public #ClassName#[] fetch()
+                throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException,
+                IllegalArgumentException, SecurityException, ClassNotFoundException, SQLException, IOException /{
+            DatabaseConnection connection = ConnectionManager.getDatabaseConnection();
+            return new #ClassName#().findAll(connection);
+        /}
+
+        @UrlMapping(url = "/fetch//{id/}")
+        @RestAPI
+        public #ClassName# fetch(@HttpParam(type = HttpParameters.PATH_VARIABLE) Long id)
+                throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException,
+                IllegalArgumentException, SecurityException, ClassNotFoundException, SQLException, IOException /{
+            DatabaseConnection connection = ConnectionManager.getDatabaseConnection();
+            return new #ClassName#().findById(connection, id);
+        /}
+    }
+
+
+}
