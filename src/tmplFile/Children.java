@@ -57,9 +57,10 @@ public class Children {
 
             }
         }
-        while (value.contains("  ")) {
-            value = value.replaceAll("  ", " ");
-        }
+        // NESORIKO
+        // while (value.contains(" ")) {
+        // value = value.replaceAll(" ", " ");
+        // }
     }
 
     /**
