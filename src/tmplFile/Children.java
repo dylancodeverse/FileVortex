@@ -53,8 +53,8 @@ public class Children {
         while (iterator.hasNext()) {
             String s = iterator.next();
             if (!s.isBlank()) {
-                this.value += s.trim() + "\n";
-
+                // this.value += s.trim() + "\n";
+                this.value += s + "\n";
             }
         }
         // NESORIKO
